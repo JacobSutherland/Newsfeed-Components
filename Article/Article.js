@@ -85,11 +85,20 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'My Article',
+    date: 'Jan 15th, 2020',
+    firstParagraph: `This is my first post on this website, what do you think of my profile? `,
+
+    secondParagraph: `I really like to write code even if i'm bad at it `,
+
+    thirdParagraph: `Thanks for cchecking my post out!`
   }
 ];
 
 /* Step 1: Create a function that creates a component. You will want your component to look like the template below: 
-  
+
   <div class="article">
     <h2>{title of the article}</h2>
     <p class="date">{date of the article}</p>
@@ -112,3 +121,51 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
+
+const articlesParent = document.querySelector('.articles')
+
+data.map(i =>{
+  articlesParent.appendChild(createArticles(i.title, i.date, i.firstParagraph, i.secondParagraph, i.thirdParagraph));
+})
+
+
+//create a function that lets us create html dynamically by simply calling a funcion to create a structured html component 
+function createArticles(title, date, firstParagraph, secondParagraph, thirdParagraph){
+  //1 Define all html 
+  const articleCard = document.createElement('div');
+  const articleTitle = document.createElement('h2');
+  const articleDate = document.createElement('p');
+  const paraOne = document.createElement('p');
+  const paraTwo = document.createElement('p');
+  const paraThree = document.createElement('p');
+  const expand = document.createElement('span');
+
+  //2 attach all html to eachother
+  articleCard.append(articleTitle);
+  articleCard.append(articleDate);
+  articleCard.append(paraOne);
+  articleCard.append(expand);
+
+  //3 assign classes 
+  articleCard.classList.add('article');
+  articleTitle.classList.add('title');
+  expand.classList.add('expandButton')
+  articleDate.classList.add('date');
+ 
+  //4 assign values to html
+  articleTitle.textContent = title;
+  articleDate.textContent = date;
+  paraOne.textContent = firstParagraph;
+  paraTwo.textContent = secondParagraph;
+  paraThree.textContent = thirdParagraph;
+  expand.textContent = 'click to expand';
+  
+
+//2 Expand atricles on button click
+expand.addEventListener('click', () =>{
+articleCard.classList.toggle('article-open');
+})
+
+//returns the js/html
+return articleCard;
+}
